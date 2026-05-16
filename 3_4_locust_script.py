@@ -2,7 +2,7 @@ from locust import HttpUser, task, between
 import random
 from urllib.parse import urljoin
 
-VIDEO_URLS = [f"/videos/{i}/index.m3u8" for i in range(1, 501)]
+VIDEO_URLS = [f"/videos/{i}/index.m3u8" for i in range(1, 1000)]
 
 
 class VideoUser(HttpUser):
