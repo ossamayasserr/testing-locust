@@ -9,12 +9,15 @@ class VideoUser(HttpUser):
     wait_time = between(0.5, 1)
 
     def get_playlist(self, url):
-        # allow_redirects=True is default, but explicit is clearer
         response = self.client.get(
             url,
             allow_redirects=True,
-#            name="/playlist"
+            name="/playlist"
         )
+
+        # Do not process the response body if the request failed
+        if not response.ok:
+            return None
 
         return response
 
@@ -41,7 +44,8 @@ class VideoUser(HttpUser):
 
         playlist_response = self.get_playlist(playlist_url)
 
-        if not playlist_response.text:
+        # Stop if playlist request failed
+        if playlist_response is None:
             return
 
         # FINAL redirected URL
@@ -55,14 +59,19 @@ class VideoUser(HttpUser):
         # Download TS files from redirected host
         for segment, duration in segments:
 
-            segment_url = urljoin(redirected_playlist_url, segment)
-
-            # IMPORTANT:
-            # use absolute URL so requests go to redirected CDN host
-            self.client.get(
-                segment_url,
-#                name="/segment"
+            segment_url = urljoin(
+                redirected_playlist_url,
+                segment
             )
+
+            response = self.client.get(
+                segment_url,
+                name="/segment"
+            )
+
+            # Optional: stop watching if a segment fails
+            if not response.ok:
+                break
 
             if duration:
                 self.wait_time = lambda: duration
