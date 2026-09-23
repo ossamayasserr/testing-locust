@@ -4,47 +4,6 @@ from urllib.parse import urljoin
 
 VIDEO_URLS = [f"/videos/{i}/index.m3u8" for i in range(1, 401)]
 
-######################################## AUTH PART START ###############################################33
-
-from locust import events
-from flask import session
-from flask_login import UserMixin
-import secrets
-
-@events.init.add_listener
-def set_secret_key(environment, **kwargs):
-    if environment.web_ui:
-        environment.web_ui.app.secret_key = secrets.token_hex(32)
-
-class LocustUser(UserMixin):
-    def __init__(self, username):
-        self.id = username
-
-
-@events.init.add_listener
-def on_locust_init(environment, **kwargs):
-    if not environment.web_ui:
-        return
-
-    environment.web_ui.auth_args["username_password_callback"] = "/login"
-
-    @environment.web_ui.app.route("/login", methods=["POST"])
-    def login():
-        from flask import request, redirect
-        from flask_login import login_user
-
-        username = request.form.get("username")
-        password = request.form.get("password")
-
-        if username == "oss" and password == "haha":
-            login_user(LocustUser(username))
-            return redirect("/")
-
-        session["auth_error"] = "Invalid username or password"
-        return redirect("/login")
-
-
-######################################## AUTH PART END ###############################################33
 
 class VideoUser(HttpUser):
     wait_time = between(0.5, 1)
