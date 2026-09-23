@@ -9,7 +9,12 @@ VIDEO_URLS = [f"/videos/{i}/index.m3u8" for i in range(1, 401)]
 from locust import events
 from flask import session
 from flask_login import UserMixin
+import secrets
 
+@events.init.add_listener
+def set_secret_key(environment, **kwargs):
+    if environment.web_ui:
+        environment.web_ui.app.secret_key = secrets.token_hex(32)
 
 class LocustUser(UserMixin):
     def __init__(self, username):
