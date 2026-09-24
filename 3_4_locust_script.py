@@ -12,7 +12,7 @@ class VideoUser(HttpUser):
         response = self.client.get(
             url,
             allow_redirects=True,
-            name="/playlist"
+            # name="/playlist"
         )
 
         # Do not process the response body if the request failed
@@ -66,7 +66,7 @@ class VideoUser(HttpUser):
 
             response = self.client.get(
                 segment_url,
-                name="/segment"
+                # name="/segment"
             )
 
             # Optional: stop watching if a segment fails
