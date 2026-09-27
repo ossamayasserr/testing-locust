@@ -8,8 +8,14 @@ from urllib.parse import urljoin, urlparse
 # Configuration
 # ============================================================
 
+# VIDEO_URLS = [
+#     f"/videos/{i}/index.m3u8"
+#     for i in range(1, 401)
+# ]
+
+# For Testing Object Storage Directly without Streaming Nodes.
 VIDEO_URLS = [
-    f"/videos/{i}/index.m3u8"
+    f"/agent47/{i}/index.m3u8"
     for i in range(1, 401)
 ]
 
