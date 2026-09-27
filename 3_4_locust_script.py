@@ -15,7 +15,7 @@ from urllib.parse import urljoin, urlparse
 
 # For Testing Object Storage Directly without Streaming Nodes.
 VIDEO_URLS = [
-    f"/agent47/{i}/index.m3u8"
+    f"/videos/{i}/index.m3u8"
     for i in range(1, 401)
 ]
 
@@ -54,6 +54,7 @@ class VideoUser(HttpUser):
 
         response = self.client.get(
             url,
+            auth=("u588641", "fRx1@8rsAfYeQNT&HJFl#tSuueMa7d4"), # WebDAV Load Testing
             name="/playlist",
             allow_redirects=True,
         )
@@ -117,6 +118,7 @@ class VideoUser(HttpUser):
 
         response = self.client.get(
             segment_url,
+            auth=("u588641", "fRx1@8rsAfYeQNT&HJFl#tSuueMa7d4"), # WebDAV Load Testing
 
             # Example:
             #
