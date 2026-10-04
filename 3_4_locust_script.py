@@ -37,12 +37,15 @@ from urllib.parse import urljoin
 # Do NOT put credentials in this file.
 # ------------------------------------------------------------
 
+# OBJECT_STORAGES = {
+#     "agent47": "https://hel1.your-objectstorage.com/agent47/",
+#     "agent48": "https://fsn1.your-objectstorage.com/agent48/",
+#     "agent49": "https://nbg1.your-objectstorage.com/agent49/",
+#     "agent50": "https://fsn1.your-objectstorage.com/agent50/",
+#     "agent51": "https://fsn1.your-objectstorage.com/agent51/",
+# }
 OBJECT_STORAGES = {
-    "agent47": "https://hel1.your-objectstorage.com/agent47/",
-    "agent48": "https://fsn1.your-objectstorage.com/agent48/",
-    "agent49": "https://nbg1.your-objectstorage.com/agent49/",
-    "agent50": "https://fsn1.your-objectstorage.com/agent50/",
-    "agent51": "https://fsn1.your-objectstorage.com/agent51/",
+    "ManagerVM": "http://62.238.43.236:8000/videos/",
 }
 
 
